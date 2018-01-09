@@ -2,33 +2,27 @@ import React 		from 'react';
 import PropTypes 	from 'prop-types';
 
 
-export default class InputField extends React.Component {
+const InputField = props => (
 
-    onChange = (event) => this.props.onChange(event.target.name, event.target.value);
+    <div className={props.className}>
+        <label htmlFor={props.id || props.name}>{props.label}</label>
 
-    render () {
-        const id = this.props.id || this.props.label || this.props.placeholder;
+        <input
+            id={props.id || props.name}
+            name={props.name}
+            onChange={props.onChange}
+            placeholder={props.placeholder}
+            required={props.required}
+            type={props.type}
+            value={props.value}/>
 
-        return (
-            <div className={this.props.className}>
-                <label htmlFor={id}>{this.props.label}</label>
-                <input
-                    id={id}
-                    name={this.props.name}
-                    onChange={this.onChange}
-                    placeholder={this.props.placeholder}
-                    required={this.props.required}
-                    type={this.props.type}
-                    value={this.props.value}/>
-            </div>
-        )
-    }
-}
+    </div>
+);
 
 
 InputField.propTypes = {
     id: PropTypes.string,
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
     value: PropTypes.string
@@ -38,3 +32,6 @@ InputField.defaultProps = {
     required: null,
     type: 'text',
 };
+
+
+export default InputField;

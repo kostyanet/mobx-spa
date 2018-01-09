@@ -2,23 +2,18 @@ import React 		from 'react';
 import PropTypes 	from 'prop-types';
 
 
-export default class InputCheckbox extends React.Component {
+const InputCheckbox = props => (
 
-    onChange = (event) => this.props.onChange(event.target.name, event.target.value);
+    <div className={props.className}>
+        <label htmlFor={props.id || props.label}>
 
-    render () {
-        const {className, isChecked, id, label} = this.props;
+            <input type="checkbox" name={props.label} id={props.id || props.label}
+                   checked={props.isChecked} onChange={props.onChange}/> {props.label}
 
-        return (
-            <div className={className}>
-                <label htmlFor={id || label}>
-                    <input type="checkbox" name={label} id={id || label}
-                           checked={isChecked} onChange={this.onChange}/> {label}
-                </label>
-            </div>
-        )
-    }
-}
+        </label>
+    </div>
+);
+
 
 InputCheckbox.propTypes = {
     className: PropTypes.string,
@@ -27,3 +22,6 @@ InputCheckbox.propTypes = {
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
 };
+
+
+export default InputCheckbox;

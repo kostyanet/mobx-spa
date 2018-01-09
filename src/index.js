@@ -5,7 +5,7 @@ import {useStrict} from 'mobx';
 
 import App from './components/App/App.jsx';
 import modelStore from './stores/model-store';
-import uiStore from './stores/ui-store';
+import uiStore from './stores/ui-state';
 import './index.css';
 
 useStrict(true);

@@ -1,22 +1,25 @@
 import React from 'react';
 import classNames from 'classnames';
+import {inject, observer} from "mobx-react";
 
 import LoginForm from "./LoginForm";
+// import UIState from '../../stores/ui-state'
 import './LoginPage.sass'
 
 
+@inject('uiState') @observer
 export default class LoginPage extends React.Component {
 
-    // constructor(props) {
-    //     super(props);
-    //
+    constructor(props) {
+        super(props);
+debugger
     //     this.state = {
     //         isKeepLogged:   false,
     //         isPending:      false,
     //         password:       '',
     //         username:       '',
     //     };
-    // }
+    }
 
 
     render() {

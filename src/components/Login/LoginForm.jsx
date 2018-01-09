@@ -62,11 +62,15 @@ export default class LoginForm extends React.Component {
     // }
 
 
-    handleKeepLogged = () => {};
+    handleKeepLogged = (event) =>  this.setState({isKeepLogged: event.target.checked});
 
-    handleSubmit = () => {};
 
-    updateProperty = (key, value) => this.setState({[key]: value});
+    handleSubmit = (event) => {
+        event.preventDefault();
+    };
+
+
+    updateProperty = (event) =>  this.setState({[event.target.name]: event.target.value});
 
 
     render() {
