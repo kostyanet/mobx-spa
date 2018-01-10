@@ -67,6 +67,11 @@ export default class LoginForm extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+
+        this.props.onSubmit({
+            username:   this.state.username.trim(),
+            password:   this.state.password.trim()
+        });
     };
 
 
@@ -103,7 +108,7 @@ export default class LoginForm extends React.Component {
         const buttonProps = {
             className:      'btn btn-primary',
             content:        'Login',
-            disabled:       this.state.isPending,
+            disabled:       this.props.isPending,
             handleClick:    this.handleSubmit,
             type:           'submit',
         };

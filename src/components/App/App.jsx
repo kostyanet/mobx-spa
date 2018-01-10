@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router} from 'react-router-dom';
+import {Router, Route} from 'react-router-dom';
 import { Provider, observer } from 'mobx-react';
 import createBrowserHistory from 'history/createBrowserHistory'
 
@@ -24,7 +24,7 @@ class App extends React.Component {
             <div className="_main-layout">
                 <Provider {...stores}>
                     <Router history={history}>
-                        <PrimaryHeader />
+                        <PrimaryLayout />
                     </Router>
 
                     {/*<p className="App-intro">*/}
@@ -43,13 +43,10 @@ export default App;
 
 const PrimaryLayout = () => (
     <div className="primary-layout">
-        <header>
-            Our React Router 4 App
-            <Route path="/users" component={UsersMenu} />
-        </header>
+        <PrimaryHeader />
         <main>
-            <Route path="/" exact component={HomePage} />
-            <Route path="/users" component={UsersPage} />
+            <Route path="/" exact component={LoginPage} />
+    {/*<Route path="/users" component={UsersPage} />*/}
         </main>
     </div>
 )

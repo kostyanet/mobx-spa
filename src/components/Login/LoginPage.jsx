@@ -10,17 +10,22 @@ import './LoginPage.sass'
 @inject('uiState') @observer
 export default class LoginPage extends React.Component {
 
-    constructor(props) {
-        super(props);
-debugger
-    //     this.state = {
-    //         isKeepLogged:   false,
-    //         isPending:      false,
-    //         password:       '',
-    //         username:       '',
-    //     };
-    }
+//    constructor(props) {
+//        super(props);
+//debugger
+//    //     this.state = {
+//    //         isKeepLogged:   false,
+//    //         isPending:      false,
+//    //         password:       '',
+//    //         username:       '',
+//    //     };
+//    }
 
+
+    handleSubmit = creds => { debugger
+        console.log(this.props)
+        this.props.uiState.login(creds);
+    };
 
     render() {
         return (
@@ -31,7 +36,9 @@ debugger
                     Unknown user name
                 </div>
 
-                <LoginForm></LoginForm>
+                <LoginForm
+                    isPending={this.props.uiState.LoginPage.isPending}
+                    onSubmit={this.handleSubmit} />
             </div>
         );
     }

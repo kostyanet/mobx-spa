@@ -1,14 +1,27 @@
-import {observable, computed} from 'mobx';
+import {action, observable, computed} from 'mobx';
 
 class UIState {
-    @observable pendingRequestCount = 0;
+    //@observable pendingRequestCount = 0;
+
+    @observable LoginPage = {
+        isPending:  false,
+        message:    null
+    };
 
 
-    // constructor() {}
+     constructor() {}
 
-    @computed get appIsInSync() {
-        return this.pendingRequestCount === 0
+
+    @action login() => {
+        this.LoginPage.isPending = true;
     }
+
+
+
+    //@computed get appIsInSync() {
+    //    return this.pendingRequestCount === 0
+    //}
+
 }
 
 
