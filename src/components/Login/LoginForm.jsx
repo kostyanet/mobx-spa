@@ -71,7 +71,7 @@ export default class LoginForm extends React.Component {
         this.props.onSubmit({
             username:   this.state.username.trim(),
             password:   this.state.password.trim()
-        });
+        },  this.state.isKeepLogged);
     };
 
 

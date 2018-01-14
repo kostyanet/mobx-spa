@@ -1,19 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
-import {useStrict} from 'mobx';
 
-import App from './components/App/App.jsx';
-import modelStore from './stores/model-store';
-import uiStore from './stores/ui-state';
+import {useStrict} from 'mobx';
+import {Provider} from 'mobx-react';
+import {MobxRouter, startRouter} from 'mobx-router';
+
+import AppHeader from './components/App/AppHeader';
+import appRoutes from './config/app-routes';
+import store from './stores/store';
+
 import './index.css';
 
+
 useStrict(true);
+startRouter(appRoutes, store);
 
 
-ReactDOM.render(<App
-    modelStore={modelStore}
-    uiStore={uiStore}
-/>, document.getElementById('root'));
-
-registerServiceWorker();
+ReactDOM.render(
+    <Provider store={store}>
+        <div>
+            <AppHeader/>
+            <MobxRouter/>
+        </div>
+    </Provider>, document.getElementById('root')
+);
