@@ -1,5 +1,7 @@
 import {action, observable, computed} from 'mobx';
 
+import authService from '../services/auth-service';
+
 class UIState {
     //@observable pendingRequestCount = 0;
 
@@ -9,12 +11,26 @@ class UIState {
     };
 
 
-     constructor() {}
-
-
-    @action login() => {
-        this.LoginPage.isPending = true;
+    constructor(authService) {
+        this.authService = authService;
     }
+
+
+    @action login = (creds) => {
+        this.LoginPage.isPending = true;
+
+        this.authService.login(creds)
+            .then(this._loginSuccess)
+            .catch(this._loginError);
+    };
+
+    @action.bound _loginSuccess = () => {
+        this.LoginPage.isPending = false;
+    };
+
+    @action.bound _loginError = () => {
+        this.LoginPage.isPending = false;
+    };
 
 
 
@@ -25,5 +41,5 @@ class UIState {
 }
 
 
-const uiState = new UIState();
+const uiState = new UIState(authService);
 export default uiState;

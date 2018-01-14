@@ -11,16 +11,21 @@
     "history": "^4.7.2",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5",
+    "mobx-router": "0.0.8",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2"
+    "react-dom": "^16.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.2",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0"
   }
 }
