@@ -1,13 +1,10 @@
 import React from 'react';
 
-import Button from "../common/Button";
-import InputCheckbox from "../common/InputCheckbox";
-import InputField from "../common/InputField";
+import Button from '../common/Button';
+import InputCheckbox from '../common/InputCheckbox';
+import InputField from '../common/InputField';
 
 import './LoginPage.sass'
-
-// import AuthService          from '../../services/auth.service.js';
-// import LoginForm            from './LoginForm.jsx';
 
 
 export default class LoginForm extends React.Component {
@@ -22,44 +19,6 @@ export default class LoginForm extends React.Component {
             username:       '',
         };
     }
-
-
-    // handleChange = event => {
-    //     let obj = (event.target.type === 'text')
-    //         ? {nameValue: event.target.value}
-    //         : {passValue: event.target.value};
-    //
-    //     this.setState(Object.assign({
-    //         nameMsg:    '',
-    //         passMsg:    ''
-    //     }, obj));
-    // };
-
-
-    // handleSubmit = event => {
-    //     event.preventDefault();
-    //
-    //     let creds = {
-    //         username: this.state.nameValue.trim(),
-    //         password: this.state.passValue.trim()
-    //     };
-    //
-    //     AuthService.login(creds, this.checkboxRef.checked)
-    //         .catch(err => this.onError(err))
-    //         // todo remove completely later
-    //         // .finally(() => setTimeout(() => this.setState({isLoading: false}), 1000));
-    //
-    //     this.setState({isLoading: true});
-    // };
-
-
-    // onError(err) {
-    //     let obj = (/password/i.test(err.message))
-    //         ? {passMsg: err.message, nameMsg: ''}
-    //         : {nameMsg: err.message, passMsg: ''};
-    //
-    //     this.setState(obj);
-    // }
 
 
     handleKeepLogged = (event) =>  this.setState({isKeepLogged: event.target.checked});

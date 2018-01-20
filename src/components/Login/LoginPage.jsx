@@ -9,12 +9,7 @@ import './LoginPage.sass';
 @inject('store') @observer
 export default class LoginPage extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     handleSubmit = (creds, keepLogged) => {
-        // console.log(this.props);
         this.props.store.views.loginView.login(creds, keepLogged);
     };
 
@@ -27,7 +22,7 @@ export default class LoginPage extends React.Component {
                 <h2>Login</h2>
 
                 <div className={classNames('alert alert-danger', {'hidden': !store.message} )} role="alert">
-                    Unknown user name
+                    <strong>Error:</strong> {store.message}
                 </div>
 
                 <LoginForm

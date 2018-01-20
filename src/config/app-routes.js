@@ -1,13 +1,10 @@
 import React from 'react';
 import {Route} from 'mobx-router';
 
-import HomePage    from '../components/App/HomePage';
-import LoginPage   from '../components/Login/LoginPage';
+import HomePage         from '../components/App/HomePage';
+import LoginPage        from '../components/Login/LoginPage';
+import ProtectedPage    from '../components/App/ProtectedPage';
 
-// import Document    from 'components/Document';
-// import Gallery     from 'components/Gallery';
-// import Book        from 'components/Book';
-// import UserProfile from 'components/UserProfile';
 
 const appRoutes = {
     home: new Route({
@@ -18,6 +15,20 @@ const appRoutes = {
     login: new Route({
         path: '/login',
         component: <LoginPage/>
+    }),
+
+    protected: new Route({
+        path: '/protected',
+        component: <ProtectedPage/>,
+
+        beforeEnter: (route, params, store) => {
+            if (!store) return true;
+
+            if (!store.views.loginView.userSession) {
+                alert('Please, log in to visit this page!');
+                return false;
+            }
+        }
     }),
 
 

@@ -5,6 +5,7 @@ export default class LoginView {
 
     @observable isPending   = false;
     @observable message     = null;
+    @observable userSession = null;
 
 
     constructor(store, appRoutes, authService) {
@@ -23,14 +24,26 @@ export default class LoginView {
     };
 
 
-    @action.bound _loginSuccess = () => { debugger
+    @action.bound _loginSuccess = (userSession) => {
         this.isPending = false;
-        this.store.router.goTo(this.appRoutes['home']);
+        this.message = null;
+        this.userSession = userSession;
+
+        const whereToGo = this.store.router.params.returnUrl || 'home';
+        this.store.router.goTo(this.appRoutes[whereToGo]);
     };
 
 
-    @action.bound _loginError = () => {
+    @action.bound _loginError = (err) => {
         this.isPending = false;
+        this.message = err.message;
+    };
+
+
+    @action logout = () => {
+        this.userSession = null;
+        window.localStorage.removeItem('user');
+        // this.authService.logout...
     };
 
 }

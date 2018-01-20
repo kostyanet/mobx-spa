@@ -1,7 +1,7 @@
-import React 		from 'react';
+import React from 'react';
 
 import {inject, observer} from 'mobx-react';
-import {Link}       from 'mobx-router';
+import {Link} from 'mobx-router';
 
 import appRoutes from '../../config/app-routes';
 import logo from '../../logo.svg';
@@ -9,6 +9,12 @@ import './AppHeader.sass'
 
 
 class AppHeader extends React.Component {
+
+    handleLogout = _ => {
+        this.props.store.views.loginView.logout();
+    };
+
+
     render() {
         const {store} = this.props;
         const {router: {goTo}} = store;
@@ -25,12 +31,14 @@ class AppHeader extends React.Component {
                         <li className="nav-item">
                             <Link className="nav-link" view={appRoutes.home} store={store}>Home</Link>
                         </li>
-                        {/*<li className="nav-item">*/}
-                            {/*<Link className="nav-link" activeClassName="active"*/}
-                                  {/*onClick={() => props.store.router.goTo(appRoutes.home)}>Users</Link>*/}
-                        {/*</li>*/}
                         <li className="nav-item">
-                            <Link className="nav-link" view={appRoutes.login} store={store}>Login</Link>
+                            <Link className="nav-link" view={appRoutes.protected} store={store}>Protected</Link>
+                        </li>
+                        <li className="nav-item">
+                            {store.views.loginView.userSession
+                                ? (<a className="nav-link" onClick={this.handleLogout} tabIndex="0">Logout</a>)
+                                : (<Link className="nav-link" view={appRoutes.login} store={store}>Login</Link>)
+                            }
                         </li>
                     </ul>
                 </nav>

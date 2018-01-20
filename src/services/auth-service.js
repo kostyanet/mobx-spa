@@ -19,6 +19,7 @@ class AuthService {
                 keepLogged && window.localStorage.setItem('user', JSON.stringify(response.data));
 
                 window.console.log('AuthService: successfully logged.');
+                return response.data;
             })
 
             // todo: move to exception service
