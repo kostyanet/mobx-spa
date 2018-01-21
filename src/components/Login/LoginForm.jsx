@@ -65,7 +65,7 @@ export default class LoginForm extends React.Component {
             label:           'Keep me logged'
         };
         const buttonProps = {
-            className:      'btn btn-primary',
+            className:      'btn btn-primary mt-4',
             content:        'Login',
             disabled:       this.props.isPending,
             handleClick:    this.handleSubmit,

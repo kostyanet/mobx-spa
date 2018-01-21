@@ -6,8 +6,9 @@ import {Provider} from 'mobx-react';
 import {MobxRouter, startRouter} from 'mobx-router';
 
 import AppHeader from './components/App/AppHeader';
+import ModalPage from './components/Modal/ModalPage';
 import appRoutes from './config/app-routes';
-import store from './stores/store';
+import store     from './stores/store';
 
 import './index.css';
 
@@ -21,6 +22,7 @@ ReactDOM.render(
         <div>
             <AppHeader/>
             <MobxRouter/>
+            <ModalPage />
         </div>
     </Provider>, document.getElementById('root')
 );

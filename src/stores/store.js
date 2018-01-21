@@ -1,8 +1,10 @@
 import {RouterStore} from 'mobx-router';
-import LoginView     from './views/login-view.store';
 
-import appRoutes from '../config/app-routes';
-import authService   from '../services/auth-service';
+import appRoutes   from '../config/app-routes';
+import authService from '../services/auth-service';
+
+import LoginView     from './views/login-view.store';
+import ModalView   from './views/modal-view.store';
 
 
 class Store {
@@ -10,7 +12,8 @@ class Store {
         this.router = new RouterStore();
 
         this.views = {
-            loginView:  new LoginView(this, appRoutes, authService)
+            loginView:  new LoginView(this, appRoutes, authService),
+            modalView:  new ModalView(this),
         };
     }
 }

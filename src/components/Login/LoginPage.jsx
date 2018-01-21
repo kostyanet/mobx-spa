@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import {inject, observer} from 'mobx-react';
 
 import LoginForm from './LoginForm';
@@ -18,16 +17,22 @@ export default class LoginPage extends React.Component {
         const store = this.props.store.views.loginView;
 
         return (
-            <div className="container-fluid LoginPage">
-                <h2>Login</h2>
+            <div className="container-fluid">
+                <div className="card LoginPage">
+                    <h3 className="card-header">Login</h3>
 
-                <div className={classNames('alert alert-danger', {'hidden': !store.message} )} role="alert">
-                    <strong>Error:</strong> {store.message}
+                    <div className="LoginPage__block">
+                        {store.message &&
+                            <div className="alert alert-danger" role="alert">
+                                <strong>Error:</strong> {store.message}
+                            </div>
+                        }
+
+                        <LoginForm
+                            isPending={store.isPending}
+                            onSubmit={this.handleSubmit} />
+                    </div>
                 </div>
-
-                <LoginForm
-                    isPending={store.isPending}
-                    onSubmit={this.handleSubmit} />
             </div>
         );
     }
