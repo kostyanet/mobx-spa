@@ -1,4 +1,4 @@
-import {action, observable, computed} from 'mobx';
+import {action, observable} from 'mobx';
 
 
 export default class LoginView {
@@ -17,10 +17,11 @@ export default class LoginView {
 
     @action login = (creds, keepLogged) => {
         this.isPending = true;
+        this.store.views.modalView.showModal();
 
         this.authService.login(creds, keepLogged)
             .then(this._loginSuccess)
-            .catch(this._loginError);
+            .catch(this._handleError);
     };
 
 
@@ -29,21 +30,28 @@ export default class LoginView {
         this.message = null;
         this.userSession = userSession;
 
+        this.store.views.modalView.closeModal();
+
         const whereToGo = this.store.router.params.returnUrl || 'home';
         this.store.router.goTo(this.appRoutes[whereToGo]);
     };
 
 
-    @action.bound _loginError = (err) => {
+    @action.bound _handleError = (err) => {
         this.isPending = false;
         this.message = err.message;
+
+        this.store.views.modalView.closeModal();
     };
 
 
     @action logout = () => {
+        this.isPending = true;
         this.userSession = null;
-        window.localStorage.removeItem('user');
-        // this.authService.logout...
+
+        this.authService.logout()
+            .then(action('_logoutSuccess', (x) => this.isPending = false))
+            .catch(this._handleError);
     };
 
 }
