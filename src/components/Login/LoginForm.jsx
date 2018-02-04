@@ -16,7 +16,7 @@ export default class LoginForm extends React.Component {
             isKeepLogged:   false,
             isPending:      false,
             password:       '',
-            username:       '',
+            login:          '',
         };
     }
 
@@ -28,7 +28,7 @@ export default class LoginForm extends React.Component {
         event.preventDefault();
 
         this.props.onSubmit({
-            username:   this.state.username.trim(),
+            login:      this.state.login.trim(),
             password:   this.state.password.trim()
         },  this.state.isKeepLogged);
     };
@@ -40,13 +40,13 @@ export default class LoginForm extends React.Component {
     render() {
         const nameProps = {
             className:      'form-group',
-            label:          'UserName',
-            name:           'username',
+            label:          'Login',
+            name:           'login',
             onChange:       this.updateProperty,
-            placeholder:    'Username',
+            placeholder:    'Login',
             required:       true,
             type:           'text',
-            value:          this.state.username
+            value:          this.state.login
         };
         const passProps = {
             className:      'form-group',

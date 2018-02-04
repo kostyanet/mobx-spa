@@ -1,9 +1,10 @@
 import React from 'react';
 import {Route} from 'mobx-router';
 
-import HomePage         from '../components/App/HomePage';
-import LoginPage        from '../components/Login/LoginPage';
-import ProtectedPage    from '../components/App/ProtectedPage';
+import HomePage      from '../components/App/HomePage';
+import InventoryPage from '../components/App/InventoryPage';
+import LoginPage     from '../components/Login/LoginPage';
+// import ProtectedPage from '../components/App/ProtectedPage';
 
 
 const appRoutes = {
@@ -17,9 +18,9 @@ const appRoutes = {
         component: <LoginPage/>
     }),
 
-    protected: new Route({
-        path: '/protected',
-        component: <ProtectedPage/>,
+    inventory: new Route({
+        path: '/inventory',
+        component: <InventoryPage/>,
 
         beforeEnter: (route, params, store) => {
             if (!store) return true;

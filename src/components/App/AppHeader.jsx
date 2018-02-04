@@ -31,8 +31,11 @@ class AppHeader extends React.Component {
                         <li className="nav-item">
                             <Link className="nav-link" view={appRoutes.home} store={store}>Home</Link>
                         </li>
+                        {/*<li className="nav-item">*/}
+                            {/*<Link className="nav-link" view={appRoutes.protected} store={store}>Protected</Link>*/}
+                        {/*</li>*/}
                         <li className="nav-item">
-                            <Link className="nav-link" view={appRoutes.protected} store={store}>Protected</Link>
+                            <Link className="nav-link" view={appRoutes.inventory} store={store}>Inventory</Link>
                         </li>
                         <li className="nav-item">
                             {store.views.loginView.userSession
