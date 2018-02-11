@@ -7,7 +7,7 @@ const faker   = require('faker');
 const fs      = require('fs');
 
 
-makeProductList(139);
+makeProductList(439);
 
 
 function product() {
@@ -15,6 +15,7 @@ function product() {
         code:           Math.random().toString(36).substr(2),
         title:          faker.commerce.productName(),
         price:          faker.commerce.price(),
+        quality:        Math.random() * 100,
         produced:       Date.parse(faker.date.past()),
         department:     faker.commerce.department(),
         description:    faker.lorem.paragraph()

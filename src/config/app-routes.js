@@ -2,7 +2,7 @@ import React from 'react';
 import {Route} from 'mobx-router';
 
 import HomePage      from '../components/App/HomePage';
-import InventoryPage from '../components/App/InventoryPage';
+import InventoryPage from '../components/Inventory/InventoryPage';
 import LoginPage     from '../components/Login/LoginPage';
 // import ProtectedPage from '../components/App/ProtectedPage';
 
@@ -22,14 +22,14 @@ const appRoutes = {
         path: '/inventory',
         component: <InventoryPage/>,
 
-        beforeEnter: (route, params, store) => {
-            if (!store) return true;
-
-            if (!store.views.loginView.userSession) {
-                alert('Please, log in to visit this page!');
-                return false;
-            }
-        }
+        // beforeEnter: (route, params, store) => {
+        //     if (!store) return true;
+        //
+        //     if (!store.views.loginView.userSession) {
+        //         alert('Please, log in to visit this page!');
+        //         return false;
+        //     }
+        // }
     }),
 
 

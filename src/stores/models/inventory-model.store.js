@@ -1,10 +1,14 @@
 import {action, observable} from 'mobx';
+import AppValues            from '../../config/app-values';
 
 
 export default class InventoryModel {
 
+    defaultPageSize = AppValues.DEFAULT_PAGE_SIZE;
+
     @observable isPending   = false;
-    @observable inventory   = null;
+    @observable list        = [];
+    @observable pages       = 999;
 
 
     constructor(store, apiService) {
@@ -13,20 +17,13 @@ export default class InventoryModel {
     }
 
 
-    @action fetchInventory = () => {
+    @action fetchInventory = (pageSize = this.defaultPageSize, page = 0) => {
         this.isPending = true;
-        this.store.views.modalView.showModal();
 
-        this.apiService.get('/data/inventory')
-            .then(action('fetchInventorySuccess', (res) => this.inventory = res.data))
-            .then(this._handleSuccess)
+        this.apiService.get(`/data/inventory?pageSize=${pageSize}&offset=${pageSize * page}`)
+            .then(action('fetchInventorySuccess', (res) => this.list = res.data))
+            .then(action(_ => this.isPending = false))
             .catch(this._handleError);
-    };
-
-
-    @action.bound _handleSuccess = _ => {
-        this.isPending = false;
-        this.store.views.modalView.closeModal();
     };
 
 
@@ -35,13 +32,4 @@ export default class InventoryModel {
         this.store.views.modalView.showModal(`<h3>${err.message}</h3>`);
     };
 
-
-
-
-    // @action.bound _handleError = (err) => {
-    //     this.isPending = false;
-    //     this.message = err.message;
-    //
-    //     this.store.views.modalView.closeModal();
-    // };
 }
