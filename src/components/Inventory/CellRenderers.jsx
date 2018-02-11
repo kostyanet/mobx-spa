@@ -17,12 +17,15 @@ export const DateCell = row => <span className="DateCell">{new Date(Number(row.v
 
 export const QualityCell = row => (
     <div className="QualityCell">
-        <div style={{
+        <div className="QualityCell__bar" style={{
             width: `${row.value}%`,
             backgroundColor: row.value > 66 ? '#85cc00'
                 : row.value > 33 ? '#ffbf00'
                     : '#ff2e00'
         }} />
+        <div className="QualityCell__percents">
+            {Math.round(row.value * 10) / 10}<small>%</small>
+        </div>
     </div>
 );
 
