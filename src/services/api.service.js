@@ -17,12 +17,17 @@ class ApiService {
     }
 
 
-    post(query, data) {
+    delete(query, data) { return this._call(query, data, 'delete'); }
+
+    post(query, data) { return this._call(query, data, 'post'); }
+
+
+    _call(query, data, method) {
         const user = window.localStorage.getItem('user');
-        const token = user ? JSON.parse(user).keepLogged : null;
+        const token = user ? JSON.parse(user)['user-token'] : null;
 
         return api({
-            method: 'post',
+            method,
             url: query,
             data,
             headers: {
@@ -35,7 +40,7 @@ class ApiService {
 
 
     handleApiError(err) {
-        // parsing error
+        // if parsing error
         if (!err.response) {
             window.console.error(err.stack);
             throw new Error(`Unexpected Error: ${err.message}`);

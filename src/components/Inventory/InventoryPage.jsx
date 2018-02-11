@@ -9,31 +9,52 @@ import InventoryList      from './InventoryList';
 
 class InventoryPage extends React.Component {
 
+    toBeRemovedList = [];
+
+
+    handleCreate = _ => { /*todo*/ };
+
+    handleEdit = _ => { /*todo*/ };
+
+    handleRemove = _ => {
+        let idList = Array.from(this.toBeRemovedList).map(checkbox => checkbox.dataset.id);
+
+        this.props.store.models.inventory.removeItems(idList)
+            .then(_ => {
+                this.toBeRemovedList.forEach(checkbox => checkbox.checked = null);
+                this.toBeRemovedList = [];
+            });
+    };
+
+    handleSelect = eventTarget => {
+        if (eventTarget.checked) {
+            this.toBeRemovedList.push(eventTarget);
+
+        } else {
+            let idx = this.toBeRemovedList.indexOf(eventTarget);
+            this.toBeRemovedList.splice(idx, 1);
+        }
+    };
+
+
     render() {
         const {fetchInventory, isPending, list, pages} = this.props.store.models.inventory;
 
         return (
             <div className="container-fluid">
-                <InventoryHeader />
+                <InventoryHeader
+                    handleEdit={this.handleEdit}
+                    handleCreate={this.handleCreate}
+                    handleRemove={this.handleRemove} />
 
                 <InventoryList
                     fetchMore={fetchInventory}
+                    handleSelect={this.handleSelect}
                     list={list}
                     loading={isPending}
                     pages={pages} />
             </div>
         )
-
-        // return (
-        //     <div>
-        //         <h2>Protected Page</h2>
-        //         <h3>Data for authorized users only</h3>
-        //         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam explicabo laudantium numquam praesentium repellendus! Atque dolorem exercitationem, hic, illum ipsa minus molestiae mollitia provident repudiandae sit unde veniam. Minima, sit!</p>
-        //         {/*<pre>*/}
-        //         {/*<code>{JSON.stringify(props)}</code>*/}
-        //         {/*</pre>*/}
-        //     </div>
-        // )
     }
 }
 
@@ -42,4 +63,4 @@ InventoryPage.returnUrl = 'inventory';
 
 
 export default inject('store')(observer(InventoryPage));
-// export default withAuth(inject('store')(observer(InventoryPage)));
+// export default withAuth(inject('store')(observer(InventoryPage))); // todo: revert when done

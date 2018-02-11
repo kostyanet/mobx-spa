@@ -8,7 +8,7 @@ export default class InventoryModel {
 
     @observable isPending   = false;
     @observable list        = [];
-    @observable pages       = 999;
+    @observable pages       = 99;
 
 
     constructor(store, apiService) {
@@ -21,15 +21,35 @@ export default class InventoryModel {
         this.isPending = true;
 
         this.apiService.get(`/data/inventory?pageSize=${pageSize}&offset=${pageSize * page}`)
-            .then(action('fetchInventorySuccess', (res) => this.list = res.data))
+            .then(action('fetchInventorySuccess', res => this.list = res.data))
             .then(action(_ => this.isPending = false))
             .catch(this._handleError);
     };
 
 
-    @action.bound _handleError = (err) => {
+    @action removeItems = toBeRemovedList => {
+        this.isPending = true;
+
+        return Promise.all(toBeRemovedList.map(this._removeSingleItem))
+            .then(action('removeItemsSuccess', _ => this._cleanList(toBeRemovedList)))
+            .then(action(_ => this.isPending = false))
+            .catch(this._handleError);
+    };
+
+
+    _removeSingleItem = objectId => this.apiService.delete(`/data/inventory/${objectId}`);
+
+
+    @action.bound _handleError = err => {
         this.isPending = false;
         this.store.views.modalView.showModal(`<h3>${err.message}</h3>`);
     };
 
+
+    @action.bound _cleanList = toBeRemovedList => {
+        toBeRemovedList.forEach(objectId => {
+            let idx = this.list.findIndex(item => item.objectId === objectId);
+            this.list.splice(idx, 1);
+        });
+    }
 }

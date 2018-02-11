@@ -1,11 +1,11 @@
 import React        from 'react';
 import {observer}   from 'mobx-react';
 
-import ReactTable                         from 'react-table';
+import ReactTable   from 'react-table';
 import 'react-table/react-table.css';
 
-import AppValues                          from '../../config/app-values';
-import {DateCell, PriceCell, QualityCell} from './CellRenderers';
+import AppValues    from '../../config/app-values';
+import {CheckboxCell, DateCell, PriceCell, QualityCell} from './CellRenderers';
 import './InventoryPage.sass';
 
 
@@ -14,8 +14,17 @@ import './InventoryPage.sass';
 
     columns = [
         {
+            Header: 'Select',
+            width: 50,
+            accessor: 'objectId',
+            Cell: CheckboxCell,
+            getProps: () => {
+                return { onClick: e => this.props.handleSelect(e.target) };
+            }
+        }, {
             Header: 'Title',
             accessor: 'title',
+            className: 'title-column',
             width: 200
         }, {
             Header: 'Category',
@@ -42,7 +51,6 @@ import './InventoryPage.sass';
             width: 200
         }
     ];
-
 
     fetchMore = state => this.props.fetchMore(state.pageSize, state.page);
 

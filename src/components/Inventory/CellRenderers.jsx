@@ -25,3 +25,10 @@ export const QualityCell = row => (
         }} />
     </div>
 );
+
+
+export const CheckboxCell = row => (
+    <div className="CheckboxCell">
+        <input type="checkbox" data-id={row.value} checked={row.isSelected}/>
+    </div>
+);
